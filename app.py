@@ -959,7 +959,7 @@ ax.grid(True, alpha=0.3, axis='y')
 
 # Erreurs cumulées (boîtes à moustaches)
 ax = axes[2]
-ax.boxplot([erreurs], labels=['ANFIS'], vert=True,
+ax.boxplot([erreurs], tick_labels=['ANFIS'], vert=True,
            patch_artist=True,
            boxprops=dict(facecolor='lightblue', color='blue'),
            medianprops=dict(color='red', linewidth=2))
