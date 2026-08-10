@@ -350,13 +350,35 @@ class ANFIS:
         Formule    : mu[n, r, i] = exp(-(X[n,i] - c[r,i])² / (2σ[r,i]²))
         """
         N  = X.shape[0]
-        mu = np.zeros((N, self.n_regles, self.n_entrees))
-        for r in range(self.n_regles):
-            for i in range(self.n_entrees):
-                c     = self.premises[r, i, 0]
-                sigma = self.premises[r, i, 1]
-                mu[:, r, i] = gaussienne(X[:, i], c, sigma)
-        return mu
+       # CELLULE 16 — Graphique comparatif des modèles
+# ============================================================
+
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+n_comp     = 72    # 3 jours
+x_comp     = range(n_comp)
+reel_comp  = y_test_reel[:n_comp]
+
+for ax, (y_comp, nom, couleur) in zip(axes, [
+    (pred_rl[:n_comp],    "Régression Linéaire",  "orange"),
+    (pred_mlp[:n_comp],   "Réseau de Neurones",   "green"),
+    (y_pred_reel[:n_comp],"ANFIS",                "blue"),
+]):
+    ax.plot(x_comp, reel_comp, 'k-',  linewidth=1.5, label='Réel')
+    ax.plot(x_comp, y_comp,    '--',  linewidth=1.5,
+            color=couleur, label=nom)
+
+    r2_m    = ANFIS.r2(reel_comp, y_comp)
+    rmse_m  = ANFIS.rmse(reel_comp, y_comp)
+    ax.set_title(f"{nom}\nR²={r2_m:.3f} | RMSE={rmse_m:.1f}")
+    ax.legend(fontsize=8)
+    ax.set_xlabel("Heure")
+    ax.set_ylabel("Volume de trafic (véh/h)")
+    ax.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.savefig("comparaison_modeles.png", dpi=150, bbox_inches='tight')
+plt.show()
+print("✅ Graphique sauvegardé : comparaison_modeles.png")
 
     def couche2_regles(self, mu):
         """
