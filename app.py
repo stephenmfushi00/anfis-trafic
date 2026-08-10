@@ -380,7 +380,12 @@ plt.savefig("comparaison_modeles.png", dpi=150, bbox_inches='tight')
 plt.show()
 print("✅ Graphique sauvegardé : comparaison_modeles.png")
 
-    def couche2_regles(self, mu):
+   class ANFIS:
+    def couche1_fuzzification(self, x):
+        pass
+
+    def couche2_regles(self, mu):  #  Aligné sur 4 espaces
+        pass
         """
         Couche 2 : force de déclenchement de chaque règle.
 ax.set_ylabel("Volume de trafic (véh/h)")
