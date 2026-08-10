@@ -361,7 +361,13 @@ class ANFIS:
     def couche2_regles(self, mu):
         """
         Couche 2 : force de déclenchement de chaque règle.
+ax.set_ylabel("Volume de trafic (véh/h)")
+    ax.grid(True, alpha=0.3)
 
+plt.tight_layout()
+plt.savefig("comparaison_modeles.png", dpi=150, bbox_inches='tight')
+plt.show()
+print("✅ Graphique sauvegardé : comparaison_modeles.png")
         Paramètre : mu shape (N, n_regles, n_entrees)
         Retour    : w  shape (N, n_regles)
 
